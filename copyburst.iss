@@ -11,13 +11,13 @@ DisableProgramGroupPage=yes
 
 [Files]
 ; Include the standalone executable
-Source: "dist\main\main.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "dist\copyburst\copyburst.exe"; DestDir: "{app}"; Flags: ignoreversion
 
-; Include the Python DLLs and the entire Python runtime environment
-Source: "dist\main\_internal\*"; DestDir: "{app}\_internal"; Flags: ignoreversion
+; Include the Python DLLs.
+Source: "dist\copyburst\_internal\*"; DestDir: "{app}\_internal"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\CopyBurst"; Filename: "{app}\main.exe"; WorkingDir: "{app}"
 
 [Run]
-Filename: "{app}\main.exe"; Description: "Run CopyBurst"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\copyburst.exe"; Description: "Run CopyBurst"; Flags: nowait postinstall skipifsilent
