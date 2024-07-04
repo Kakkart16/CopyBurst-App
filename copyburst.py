@@ -6,26 +6,36 @@ clipboard = []
     
 previous_text = ""  # Store the previous clipboard text to detect changes
 
+monitoring = True 
+
 def monitor_clipboard():
-    global previous_text
+    global previous_text, monitoring
     while True:
-        current_text = pyperclip.paste()
-        if current_text != previous_text:
-            previous_text = current_text
-            if current_text.strip():
-                clipboard.append(current_text)
-                print("copied: ")
-                print(current_text)
-                print("\n")
+        if monitoring:
+            current_text = pyperclip.paste()
+            if current_text != previous_text:
+                previous_text = current_text
+                if current_text.strip():
+                    clipboard.append(current_text)
+                    print("copied: ")
+                    print(current_text)
+                    print("\n")
         time.sleep(0.5)
 
 def paste():
+    global monitoring
     if clipboard:
+        monitoring = False
         paste_text = clipboard.pop(0)
         print("pasted: ")
         print(paste_text)
         print("\n")
-        keyboard.write(paste_text)
+        pyperclip.copy(paste_text)
+        time.sleep(0.5) 
+        keyboard.press_and_release('ctrl+v')
+        pyperclip.copy("")
+        monitoring = True
+        # keyboard.write(paste_text)
     else:
         print('Clipboard is empty!!!')
 
